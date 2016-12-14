@@ -95,6 +95,23 @@ plot(1:numel(J_history), J_history, '-b', 'LineWidth', 2);
 xlabel('Number of iterations');
 ylabel('Cost J');
 
+hold on;
+alpha = 0.03;
+theta = zeros(3, 1);
+[theta, J_history] = gradientDescentMulti(X, y, theta, alpha, num_iters);
+plot(1:numel(J_history), J_history, '-r', 'LineWidth', 2);
+
+alpha = 0.1;
+theta = zeros(3, 1);
+[theta, J_history] = gradientDescentMulti(X, y, theta, alpha, num_iters);
+plot(1:numel(J_history), J_history, '-k', 'LineWidth', 2);
+
+alpha = 0.3;
+theta = zeros(3, 1);
+[theta, J_history] = gradientDescentMulti(X, y, theta, alpha, num_iters);
+plot(1:numel(J_history), J_history, '-c', 'LineWidth', 2);
+
+
 % Display gradient descent's result
 fprintf('Theta computed from gradient descent: \n');
 fprintf(' %f \n', theta);

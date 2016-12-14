@@ -19,17 +19,14 @@ grad = zeros(size(theta));
 %
 % Note: grad should have the same dimensions as theta
 %
-yGreaterThan1 = -1*y'*log(sigmoid(X*theta));
-yLessThan1 = -1*(1-y')*log(1-sigmoid(X*theta));
+hx = sigmoid(X*theta);
+%firstTerm = -1*y.*log(hx);
+%secondTerm = (1-y).*log(1-hx);
+%J = sum(firstTerm - secondTerm)/m;
 
-J = 1/m*sum(yGreaterThan1+yLessThan1);
+J = sum(-1*y.*log(hx)-(1-y).*log(1-hx))/m;
 
-grad = (X'*(sigmoid(X*theta)-y))/m
-
-%(1/m)*sum(sigmoid(X*theta)-y)*X(
-
-
-
+grad = (X'*(hx-y))./m;
 
 
 % =============================================================

@@ -26,12 +26,19 @@ sigma = zeros(1, size(X, 2));
 % Hint: You might find the 'mean' and 'std' functions useful.
 %       
 
-mu = mean(X)
-sigma = std(X)
-m = size(X,1)
-mu_matrix = ones(m,1) * mu
-sigma_matrix = ones(m,1) * sigma
-X_norm = (X - mu_matrix)./sigma_matrix
+numFeatures = size(X,2);
+mu = mean(X);
+sigma = std(X);
+
+for i=1:numFeatures
+    X_norm(:,i) = X(:,i)-mu(i);
+    X_norm(:,i) = X_norm(:,i)./sigma(i);
+end
+
+
+
+
+
 
 
 % ============================================================

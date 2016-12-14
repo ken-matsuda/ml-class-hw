@@ -16,31 +16,19 @@ for iter = 1:num_iters
     % Hint: While debugging, it can be useful to print out the values
     %       of the cost function (computeCost) and gradient here.
     %
+    %hx = X*theta;
+    %prod = X'*(hx-y); % forgot to subtract
+    %learningTerm = (alpha/m).*prod;
+    %theta = theta-learningTerm;
+    hx = X*theta;
+    theta = theta - (alpha/m).*(X'*(hx-y));
 
-%alpha = 0.01
-%J = 6.6929
-%alpha = 0.001
-%J = 6.4512
-%alpha = 0.0003
-%J = 6.4298
-%alpha = 0.0002
-%J = 6.4451
-%alpha = 0.0001
-%J = 7.7351
-
-    %J = sum((((X*theta) - y).^2))/(2*m)
-
-    
-    alpha = .01;
-    hypothesis = X*theta;
-    errors = hypothesis - y;
-    deltaTheta = alpha * ((transpose(X) * errors)/m)
-    theta = theta - deltaTheta
-
-    % ==============ex1==============================================
+    % ============================================================
 
     % Save the cost J in every iteration    
-    J_history(iter) = computeCost(X, y, theta);
+    J = computeCost(X, y, theta);
+    J
+    J_history(iter) = J;
 
 end
 

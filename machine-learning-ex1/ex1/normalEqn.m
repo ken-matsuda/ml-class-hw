@@ -12,11 +12,10 @@ theta = zeros(size(X, 2), 1);
 
 % ---------------------- Sample Solution ----------------------
 
-XProduct = transpose(X)*X
-InverseXProduct = inv(XProduct)
-theta = InverseXProduct*transpose(X)*y
-
-
+%calc1 = inv(X'*X);
+%calc2 = X'*y;
+%theta = calc1*calc2;
+theta = inv(X'*X)*X'*y;
 % -------------------------------------------------------------
 
 
