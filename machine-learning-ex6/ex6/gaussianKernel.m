@@ -16,10 +16,9 @@ sim = 0;
 %
 %
 
-
-
-
-
+numerator = -1*sum(abs(x1 - x2).^2);
+denominator = 2*(sigma^2);
+sim = exp(numerator/denominator);
 
 % =============================================================
     

@@ -26,7 +26,29 @@ centroids = zeros(K, n);
 % Note: You can use a for-loop over the centroids to compute this.
 %
 
+indexCount = zeros(K,1);
 
+for i=1:K
+    % find indices of elements that match centroid i
+    indicesOfTrainingExamplesAssignedToCentroid = find(idx==i);
+    % then extract those elements into new matrix
+    trainingExamplesAssignedToCentroid = X(indicesOfTrainingExamplesAssignedToCentroid,:);
+    % calculate the average
+    centroids(i,:) = sum(trainingExamplesAssignedToCentroid)/size(trainingExamplesAssignedToCentroid,1);
+end
+
+%for i=1:m
+    % get the number so far
+%    numAssignedTrainingExamples = indexCount(idx(i))+1;
+    % multiply by the current count
+%    centroid = centroids(idx(i),:) * (numAssignedTrainingExamples-1);
+    % add the training example
+%    centroid = centroid + X(i,:);
+    % divide by the new number of assigned training examples
+%    centroid = centroid / numAssignedTrainingExamples;
+%    centroids(idx(i),:) = centroid;
+%    indexCount(idx(i)) = numAssignedTrainingExamples;
+%end
 
 
 

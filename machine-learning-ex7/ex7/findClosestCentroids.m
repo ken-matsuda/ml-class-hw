@@ -21,11 +21,39 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
+%numTrainingExamples = size(X,1);
+%numCentroids = size(centroids,1);
+%shortestDistance = 0;
 
+%numDimensions = size(X,2);
 
+%for i = 1:numTrainingExamples
+%    for j = 1:numCentroids
+%        distance = norm(X(i,:) - centroids(j,:));
+%        if j==1
+%            shortestDistance = distance;
+%            idx(i)=j;
+%        else 
+%            if (distance < shortestDistance)
+%                shortestDistance = distance;
+%                idx(i)=j;            
+%            end
+%        end
+%    end
+%end
 
+m = size(X,1);
+diffs = zeros(m,K);
 
+for j=1:K
+    % subtract each centroid from X and generate a new matrix
+    temp = bsxfun(@minus, X, centroids(j,:));
+    % square and sum on the 2nd dimension to get diffs
+    diffs(:,j) = sum(temp.^2,2);
+end
 
+% get the index of the min of the diffs on the 2nd dimension
+[Y,idx] = min(diffs,[],2);
 
 % =============================================================
 

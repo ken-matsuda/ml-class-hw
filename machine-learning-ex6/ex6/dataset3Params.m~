@@ -24,32 +24,11 @@ sigma = 0.3;
 %
 
 cMat = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
-cMatIndex = 0;
-sigMat = cMat;
-cMatLen = length(cMat);
-sigMatIndex = 0;
-sigMatLen = length(sigMat);
+sigMat = cMat
 
-bestError = 0;
-for i=1:sigMatLen
-    for j = 1:cMatLen
-        model = svmTrain(X, y, cMat(j), @(x1, x2) gaussianKernel(x1, x2, sigMat(i)));
-        predictions = svmPredict(model, Xval);
-        error = mean(double(predictions ~= yval));
-        if(i==1)&&(j==1)
-            bestError = error;
-            cMatIndex = j;
-            sigMatIndex = i;
-        elseif error < bestError
-            bestError = error;
-            cMatIndex = j;
-            sigMatIndex = i;
-        end
-    end
-end
 
-C = cMat(cMatIndex);
-sigma = sigMat(sigMatIndex);
+
+
 
 % =========================================================================
 

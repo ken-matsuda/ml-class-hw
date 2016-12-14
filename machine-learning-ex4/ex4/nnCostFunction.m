@@ -62,29 +62,72 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+% Add ones to X to get the initial activation
+a1 = [ones(m,1),X];
 
+% calculate the 2nd layer input and activation units.  add ones to the 
+% hidden layer
+z2 = a1*Theta1'
+a2 = sigmoid(z2);
+a2 = [ones(size(a2,1),1) a2];
 
+% calculate the hypothesis
+z3 = a2*Theta2';
+hxk = sigmoid(z3);
+a3 = hxk;
 
+% make the y matrix
+eye_matrix = eye(num_labels);
+y_matrix = eye_matrix(y,:);
 
+% next calculate the cost function
+jGreaterThanEqualToZero = y_matrix.*log(hxk);
+jLessThanZero = (1-y_matrix).*log(1-hxk);
 
+% clearest way to get Theta without the bias is to index to size, but
+% for the columns.  There must be a clever Matlab notation for this.
+Theta1WithoutTheBias = Theta1(1:size(Theta1,1),2:size(Theta1,2));
+Theta2WithoutTheBias = Theta2(1:size(Theta2,1),2:size(Theta2,2));
 
+% double sum of the parameters squared
+theta1Calc = sum(sum(Theta1WithoutTheBias.^2));
+theta2Calc = sum(sum(Theta2WithoutTheBias.^2));
 
+% just for the sake of sanity, calculate the numerator and denominator
+% and then calculate the regularization parameter
+numerator = lambda*(theta1Calc+theta2Calc);
+denominator = 2*m;
+regParam = numerator/denominator;
 
+% double sum of the cost function + the regularization parameter
+J = -1*(sum(sum(jGreaterThanEqualToZero + jLessThanZero)))/m + regParam;
 
+% -------------------------------------------------------------
+% calculate the back propagation
+% -------------------------------------------------------------
 
+% 1. get the delta values
+d3 = a3 - y_matrix;
+d2 =(d3*Theta2WithoutTheBias).*sigmoidGradient(z2);
 
+Delta1 = d2'*a1;
+Delta2 = d3'*a2;
 
+r1num = size(Theta1WithoutTheBias,1);
+r2num = size(Theta2WithoutTheBias,1);
 
+reg1 = [zeros(r1num,1) (lambda/m).*Theta1WithoutTheBias];
+reg2 = [zeros(r2num,1) (lambda/m).*Theta2WithoutTheBias];
 
-
-
-
+Theta1_grad = Delta1/m+reg1;
+Theta2_grad = Delta2/m+reg2;
 
 % -------------------------------------------------------------
 
 % =========================================================================
 
 % Unroll gradients
+
 grad = [Theta1_grad(:) ; Theta2_grad(:)];
 
 

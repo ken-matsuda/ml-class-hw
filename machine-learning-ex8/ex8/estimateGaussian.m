@@ -21,7 +21,13 @@ sigma2 = zeros(n, 1);
 %               should contain variance of the i-th feature.
 %
 
-
+% calculate the mean for the matrix X
+mu = mean(X)';
+total=0;
+for i=1:n
+    total(i) = sum((X(:,i)-mu(i)).^2);
+end
+sigma2 = total/m;
 
 
 
